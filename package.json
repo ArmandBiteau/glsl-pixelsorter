@@ -1,0 +1,40 @@
+{
+  "name": "forever-beta-dummies-start-something-great",
+  "version": "",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "karma start",
+    "start": "gulp watch & nodemon ./server.js",
+    "build": "gulp build"
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "Armand Biteau",
+  "license": "ISC",
+  "dependencies": {
+    "domready": "^1.0.8",
+    "express": "^4.13.3",
+    "glsl-noise": "0.0.0",
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "gulp": "^3.9.0",
+    "jasmine": "^2.3.2",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.11",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-html-reporter": "^0.2.7",
+    "karma-jasmine": "^0.3.6",
+    "karma-webpack": "^1.7.0",
+    "nodemon": "^1.7.1",
+    "sinon": "^1.17.1",
+    "webpack": "^1.12.2",
+    "glslify": "^5.0.2",
+    "glslify-loader": "^1.0.2",
+    "raw-loader": "^0.5.1"
+  }
+}
