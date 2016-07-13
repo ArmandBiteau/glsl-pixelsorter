@@ -1,5 +1,7 @@
 # (wip) Pixi + glsl
 
+![Screenshot](screenshot.png)
+
 # Usage
   - `npm install`
   - `npm start`

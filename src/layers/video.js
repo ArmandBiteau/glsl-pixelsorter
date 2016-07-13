@@ -6,7 +6,7 @@ class VideoLayer {
 
     constructor() {
 
-        // this.texture = PIXI.Texture.fromVideo('assets/architectural.mp4');
+        // this.texture = PIXI.Texture.fromVideo('assets/particles.mp4');
 
         this.texture = PIXI.Texture.fromImage(BACKGROUND_PATH);
 
@@ -52,6 +52,10 @@ class VideoLayer {
             uSorter: {
                 type: 't',
                 value: this.sorterTexture
+            },
+            uInvert : {
+                type: 'f',
+                value: 0.0
             }
         };
 
@@ -66,8 +70,8 @@ class VideoLayer {
         this.greyFilter = new PIXI.filters.GrayFilter();
         this.greyFilter.gray = 1.0;
 
-        // this.sprite.filters = [this.shader, this.greyFilter];
-        this.sprite.filters = [this.shader];
+        this.sprite.filters = [this.shader, this.greyFilter];
+        // this.sprite.filters = [this.shader];
 
     }
 

@@ -12661,7 +12661,7 @@
 	var VIDEO_LOOP = true;
 	
 	exports.VIDEO_LOOP = VIDEO_LOOP;
-	var BACKGROUND_PATH = 'assets/2.jpg';
+	var BACKGROUND_PATH = 'assets/4.jpg';
 	exports.BACKGROUND_PATH = BACKGROUND_PATH;
 
 /***/ },
@@ -12684,7 +12684,7 @@
 	    function VideoLayer() {
 	        _classCallCheck(this, VideoLayer);
 	
-	        // this.texture = PIXI.Texture.fromVideo('assets/architectural.mp4');
+	        // this.texture = PIXI.Texture.fromVideo('assets/particles.mp4');
 	
 	        this.texture = PIXI.Texture.fromImage(_coreConfig.BACKGROUND_PATH);
 	
@@ -12731,6 +12731,10 @@
 	                uSorter: {
 	                    type: 't',
 	                    value: this.sorterTexture
+	                },
+	                uInvert: {
+	                    type: 'f',
+	                    value: 0.0
 	                }
 	            };
 	
@@ -12745,8 +12749,8 @@
 	            this.greyFilter = new PIXI.filters.GrayFilter();
 	            this.greyFilter.gray = 1.0;
 	
-	            // this.sprite.filters = [this.shader, this.greyFilter];
-	            this.sprite.filters = [this.shader];
+	            this.sprite.filters = [this.shader, this.greyFilter];
+	            // this.sprite.filters = [this.shader];
 	        }
 	    }, {
 	        key: 'glitch',
@@ -12778,7 +12782,7 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvarying vec2 vTextureCoord;\n\nuniform vec3 iResolution;\nuniform float iTime;\nuniform sampler2D uSampler;\nuniform sampler2D uDisplacement;\nuniform sampler2D uSorter;\n\nfloat blur = 0.005;\n\nhighp float rand(vec2 co) {\n    highp float a = 12.9898;\n    highp float b = 78.233;\n    highp float c = 43758.5453;\n    highp float dt= dot(co.xy ,vec2(a,b));\n    highp float sn= mod(dt,3.14);\n    return fract(sin(sn) * c);\n}\n\nvoid main() {\n\n    float delta = max(0.0, min(iTime, 1.0));\n\n    vec4 tDiffuse = texture2D(uSampler, vTextureCoord);\n\n    float mask = 1.0;\n    if (tDiffuse.r > 0.2 && tDiffuse.r < 0.85) {\n        mask = 0.0;\n    }\n\n    // float modulus = mod(\n    //     floor(vTextureCoord.x * 100.),\n    //     floor(vTextureCoord.y * 100.)\n    // ) / 100.;\n    float modulus = 1.0;\n\n    vec4 tDisplace = texture2D(uDisplacement, vTextureCoord);\n    vec4 tSorter = texture2D(uSorter, vTextureCoord);\n\n    float xDistort = - (tDisplace.r) * blur + rand(vTextureCoord)/50.0;\n    float yDistort = 0.5 * max( 0.0, 0.8 - tSorter.r ) * modulus;\n\n    vec4 color = texture2D(uSampler, vTextureCoord + ( vec2(xDistort, yDistort ) ) * mask * delta );\n\n    gl_FragColor = color;\n\n}\n"
+	module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvarying vec2 vTextureCoord;\n\nuniform vec3 iResolution;\nuniform float iTime;\nuniform sampler2D uSampler;\nuniform sampler2D uDisplacement;\nuniform sampler2D uSorter;\n\nuniform float uInvert;\n\nfloat blur = 0.025;\nfloat highAmount = 0.75;\nfloat lowAmount = 0.15;\n\nhighp float rand(vec2 co) {\n    highp float a = 12.9898;\n    highp float b = 78.233;\n    highp float c = 43758.5453;\n    highp float dt= dot(co.xy ,vec2(a,b));\n    highp float sn= mod(dt,3.14);\n    return fract(sin(sn) * c);\n}\n\nvoid main() {\n\n    float delta = max(0.0, min(iTime, 1.0));\n\n    vec4 tDiffuse = texture2D(uSampler, vTextureCoord);\n\n    // sort all pixels\n    float mask = 1.0;\n\n    // exclude sorted pi5xels in [0.2, 0.8] range\n    if (tDiffuse.r > lowAmount && tDiffuse.r < highAmount) {\n        mask = clamp(tDiffuse.r, 0.0, lowAmount);\n    }\n\n    vec4 tDisplace = texture2D(uDisplacement, vTextureCoord);\n    vec4 tSorter = texture2D(uSorter, vTextureCoord);\n\n    // xSort (everywhere)\n    float xDistort = (tDisplace.r) * blur;\n\n    // ySort (only in the mask range)\n    float yDistort = - 0.25 * max( lowAmount, highAmount - tSorter.r ) * mask;\n\n    // distorted color\n    vec4 color = texture2D(uSampler, vTextureCoord + ( vec2(xDistort, yDistort ) ) * delta );\n\n    // add noise\n    gl_FragColor = color + vec4(rand(vTextureCoord)/ (highAmount*10.0)) * mask * delta;\n\n}\n"
 
 /***/ },
 /* 8 */
