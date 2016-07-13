@@ -12696,6 +12696,12 @@
 	        this.sprite.width = _coreConfig.CANVAS_WIDTH;
 	        this.sprite.height = _coreConfig.CANVAS_HEIGHT;
 	
+	        this.sprite.anchor.x = 0.5;
+	        this.sprite.anchor.y = 0.5;
+	
+	        this.sprite.x = 0.5 * _coreConfig.CANVAS_WIDTH;
+	        this.sprite.y = 0.5 * _coreConfig.CANVAS_HEIGHT;
+	
 	        this.domElement = this.texture.baseTexture.source;
 	        this.domElement.loop = _coreConfig.VIDEO_LOOP;
 	        this.domElement.playbackRate = _coreConfig.VIDEO_SPEED;
@@ -12782,7 +12788,7 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvarying vec2 vTextureCoord;\n\nuniform vec3 iResolution;\nuniform float iTime;\nuniform sampler2D uSampler;\nuniform sampler2D uDisplacement;\nuniform sampler2D uSorter;\n\nuniform float uInvert;\n\nfloat blur = 0.025;\nfloat highAmount = 0.75;\nfloat lowAmount = 0.15;\n\nhighp float rand(vec2 co) {\n    highp float a = 12.9898;\n    highp float b = 78.233;\n    highp float c = 43758.5453;\n    highp float dt= dot(co.xy ,vec2(a,b));\n    highp float sn= mod(dt,3.14);\n    return fract(sin(sn) * c);\n}\n\nvoid main() {\n\n    float delta = max(0.0, min(iTime, 1.0));\n\n    vec4 tDiffuse = texture2D(uSampler, vTextureCoord);\n\n    // sort all pixels\n    float mask = 1.0;\n\n    // exclude sorted pi5xels in [0.2, 0.8] range\n    if (tDiffuse.r > lowAmount && tDiffuse.r < highAmount) {\n        mask = clamp(tDiffuse.r, 0.0, lowAmount);\n    }\n\n    vec4 tDisplace = texture2D(uDisplacement, vTextureCoord);\n    vec4 tSorter = texture2D(uSorter, vTextureCoord);\n\n    // xSort (everywhere)\n    float xDistort = (tDisplace.r) * blur;\n\n    // ySort (only in the mask range)\n    float yDistort = - 0.25 * max( lowAmount, highAmount - tSorter.r ) * mask;\n\n    // distorted color\n    vec4 color = texture2D(uSampler, vTextureCoord + ( vec2(xDistort, yDistort ) ) * delta );\n\n    // add noise\n    gl_FragColor = color + vec4(rand(vTextureCoord)/ (highAmount*10.0)) * mask * delta;\n\n}\n"
+	module.exports = "precision mediump float;\n#define GLSLIFY 1\n\nvarying vec2 vTextureCoord;\n\nuniform vec3 iResolution;\nuniform float iTime;\nuniform sampler2D uSampler;\nuniform sampler2D uDisplacement;\nuniform sampler2D uSorter;\n\nuniform float uInvert;\n\nfloat blur = 0.025;\nfloat highAmount = 0.75;\nfloat lowAmount = 0.15;\n\nhighp float rand(vec2 co) {\n    highp float a = 12.9898;\n    highp float b = 78.233;\n    highp float c = 43758.5453;\n    highp float dt= dot(co.xy ,vec2(a,b));\n    highp float sn= mod(dt,3.14);\n    return fract(sin(sn) * c);\n}\n\nvoid main() {\n\n    float delta = max(0.0, min(iTime, 1.0));\n\n    vec4 tDiffuse = texture2D(uSampler, vTextureCoord);\n\n    // sort all pixels\n    float mask = 1.0;\n\n    // exclude sorted pixels in [0.2, 0.8] range\n    if (tDiffuse.r > lowAmount && tDiffuse.r < highAmount) {\n        mask = clamp(tDiffuse.r, 0.0, lowAmount);\n    }\n\n    vec4 tDisplace = texture2D(uDisplacement, vTextureCoord);\n    vec4 tSorter = texture2D(uSorter, vTextureCoord);\n\n    // xSort (everywhere)\n    float xDistort = (tDisplace.r) * blur;\n\n    // ySort (only in the mask range)\n    float yDistort = - 0.25 * max( lowAmount, highAmount - tSorter.r ) * mask;\n\n    // distorted color\n    vec4 color = texture2D(uSampler, vTextureCoord + ( vec2(xDistort, yDistort ) ) * delta );\n\n    // add noise\n    gl_FragColor = color + vec4(rand(vTextureCoord)/ (highAmount*10.0)) * mask * delta;\n\n}\n"
 
 /***/ },
 /* 8 */

@@ -32,7 +32,7 @@ void main() {
     // sort all pixels
     float mask = 1.0;
 
-    // exclude sorted pi5xels in [0.2, 0.8] range
+    // exclude sorted pixels in [0.2, 0.8] range
     if (tDiffuse.r > lowAmount && tDiffuse.r < highAmount) {
         mask = clamp(tDiffuse.r, 0.0, lowAmount);
     }

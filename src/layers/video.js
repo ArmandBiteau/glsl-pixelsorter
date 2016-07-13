@@ -18,6 +18,12 @@ class VideoLayer {
         this.sprite.width = CANVAS_WIDTH;
         this.sprite.height = CANVAS_HEIGHT;
 
+        this.sprite.anchor.x = 0.5;
+        this.sprite.anchor.y = 0.5;
+
+        this.sprite.x = 0.5 * CANVAS_WIDTH;
+        this.sprite.y = 0.5 * CANVAS_HEIGHT;
+
         this.domElement = this.texture.baseTexture.source;
         this.domElement.loop = VIDEO_LOOP;
         this.domElement.playbackRate = VIDEO_SPEED;
