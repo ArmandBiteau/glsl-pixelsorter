@@ -10,7 +10,7 @@ uniform sampler2D uSorter;
 
 uniform float uInvert;
 
-float blur = 0.025;
+float blur = 0.02;
 float highAmount = 0.75;
 float lowAmount = 0.15;
 

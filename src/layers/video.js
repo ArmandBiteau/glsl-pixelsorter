@@ -6,7 +6,7 @@ class VideoLayer {
 
     constructor() {
 
-        // this.texture = PIXI.Texture.fromVideo('assets/particles.mp4');
+        // this.texture = PIXI.Texture.fromVideo('assets/medias/architectural.mp4');
 
         this.texture = PIXI.Texture.fromImage(BACKGROUND_PATH);
 
