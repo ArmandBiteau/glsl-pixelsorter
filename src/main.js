@@ -2,6 +2,8 @@ import domready from 'domready';
 
 import Application from './application';
 
+require('./stylesheets/main.scss');
+
 class Main {
 
     constructor() {

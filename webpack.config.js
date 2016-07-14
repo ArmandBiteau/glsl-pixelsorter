@@ -28,6 +28,10 @@ var config = {
         exclude: /node_modules/,
         loaders: ['raw', 'glslify']
       },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
+      }
     ]
   },
   resolve: {
