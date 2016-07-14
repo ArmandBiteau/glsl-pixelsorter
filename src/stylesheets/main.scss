@@ -1,10 +1,11 @@
 @import 'fonts';
 
 .ps__title {
+    display: block;
     position: absolute;
     width: 100%;
     top: 50%;
-    transform: translate3d(0, -50%, 0);
+    transform: translateY(-50%);
 }
 
 .ps__heading {
@@ -12,8 +13,13 @@
     text-transform: uppercase;
     font-size: 3em;
     font-family: 'Arca';
-    letter-spacing: 0.4em;
+    letter-spacing: 0.5em;
     line-height: 1.5em;
+
+    .letter {
+        position: relative;
+        display: inline-block;
+    }
 }
 
 .ps__trigger {
@@ -22,4 +28,7 @@
     height: 100%;
     left: 0;
     top: 0;
+    &:hover {
+        cursor: pointer;
+    }
 }

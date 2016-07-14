@@ -1,5 +1,7 @@
 import domready from 'domready';
 
+import TweenMax from 'gsap';
+
 import PixelCanvas from './canvas';
 
 require('./stylesheets/main.scss');
@@ -11,6 +13,9 @@ class Main {
         this.bind();
 
         this.domTrigger = document.getElementById('ps-trigger');
+        this.domTitle = document.getElementById('ps-heading');
+
+        this.domTitle.innerHTML = this.split(this.domTitle);
 
         this.addEventListeners();
 
@@ -41,6 +46,23 @@ class Main {
 
     }
 
+    // utils
+
+    split(domElement) {
+
+        let splitedString = '';
+        domElement.innerText.split('').map((char, index) => {
+
+            splitedString += '<div class="letter letter-'+index+'">'+char+'</div>';
+            return char;
+
+        });
+        return splitedString;
+
+    }
+
+    // events
+
     resize() {
 
         PixelCanvas.resize();
@@ -51,11 +73,54 @@ class Main {
 
         PixelCanvas.mouseOver();
 
+        this.explode();
+
     }
 
     mouseOut() {
 
         PixelCanvas.mouseOut();
+
+        this.implode();
+
+    }
+
+
+    // animation
+
+    explode() {
+
+        for (let i = 0; i < this.domTitle.innerText.length; i++) {
+
+            let rand = 75 - Math.random() * 150;
+
+            TweenMax.to('.ps__heading .letter-'+i, 0.3, {
+                css: {
+                    opacity: 0.3,
+                    letterSpacing: '0.7em',
+                    transform: 'translateY('+rand+'px)'
+                },
+                ease: Power3.easeOut
+            });
+
+        }
+
+    }
+
+    implode() {
+
+        for (let i = 0; i < this.domTitle.innerText.length; i++) {
+
+            TweenMax.to('.ps__heading .letter-'+i, 0.3, {
+                css: {
+                    opacity: 1.0,
+                    letterSpacing: '0.5em',
+                    transform: 'translateY(0px)'
+                },
+                ease: Power3.easeOut
+            });
+
+        }
 
     }
 
