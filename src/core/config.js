@@ -7,4 +7,4 @@ export const VIDEO_SPEED = 1;
 
 export const VIDEO_LOOP = true;
 
-export const BACKGROUND_PATH = 'assets/4.jpg';
+export const BACKGROUND_PATH = 'assets/medias/4.jpg';

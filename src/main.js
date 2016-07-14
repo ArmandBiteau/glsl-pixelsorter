@@ -1,6 +1,6 @@
 import domready from 'domready';
 
-import Application from './application';
+import PixelCanvas from './canvas';
 
 require('./stylesheets/main.scss');
 
@@ -10,6 +10,8 @@ class Main {
 
         this.bind();
 
+        this.domTrigger = document.getElementById('ps-trigger');
+
         this.addEventListeners();
 
         this.start();
@@ -18,17 +20,42 @@ class Main {
 
     bind() {
 
+        this.resize = this.resize.bind(this);
+        this.mouseOver = this.mouseOver.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
+
     }
 
     addEventListeners() {
 
-        window.addEventListener('resize', Application.resize);
+        window.addEventListener('resize',    this.resize);
+
+        this.domTrigger.addEventListener('mouseover', this.mouseOver);
+        this.domTrigger.addEventListener('mouseout',  this.mouseOut);
 
     }
 
     start() {
 
-        Application.start();
+        PixelCanvas.start();
+
+    }
+
+    resize() {
+
+        PixelCanvas.resize();
+
+    }
+
+    mouseOver() {
+
+        PixelCanvas.mouseOver();
+
+    }
+
+    mouseOut() {
+
+        PixelCanvas.mouseOut();
 
     }
 

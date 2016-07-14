@@ -17,6 +17,7 @@
     "domready": "^1.0.8",
     "express": "^4.13.3",
     "glsl-noise": "0.0.0",
+    "gsap": "^1.18.5",
     "lodash": "^3.10.1"
   },
   "devDependencies": {

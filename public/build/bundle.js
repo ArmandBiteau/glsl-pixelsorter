@@ -56,9 +56,9 @@
 	
 	var _domready2 = _interopRequireDefault(_domready);
 	
-	var _application = __webpack_require__(2);
+	var _canvas = __webpack_require__(2);
 	
-	var _application2 = _interopRequireDefault(_application);
+	var _canvas2 = _interopRequireDefault(_canvas);
 	
 	__webpack_require__(10);
 	
@@ -68,6 +68,8 @@
 	
 	        this.bind();
 	
+	        this.domTrigger = document.getElementById('ps-trigger');
+	
 	        this.addEventListeners();
 	
 	        this.start();
@@ -75,18 +77,44 @@
 	
 	    _createClass(Main, [{
 	        key: 'bind',
-	        value: function bind() {}
+	        value: function bind() {
+	
+	            this.resize = this.resize.bind(this);
+	            this.mouseOver = this.mouseOver.bind(this);
+	            this.mouseOut = this.mouseOut.bind(this);
+	        }
 	    }, {
 	        key: 'addEventListeners',
 	        value: function addEventListeners() {
 	
-	            window.addEventListener('resize', _application2['default'].resize);
+	            window.addEventListener('resize', this.resize);
+	
+	            this.domTrigger.addEventListener('mouseover', this.mouseOver);
+	            this.domTrigger.addEventListener('mouseout', this.mouseOut);
 	        }
 	    }, {
 	        key: 'start',
 	        value: function start() {
 	
-	            _application2['default'].start();
+	            _canvas2['default'].start();
+	        }
+	    }, {
+	        key: 'resize',
+	        value: function resize() {
+	
+	            _canvas2['default'].resize();
+	        }
+	    }, {
+	        key: 'mouseOver',
+	        value: function mouseOver() {
+	
+	            _canvas2['default'].mouseOver();
+	        }
+	    }, {
+	        key: 'mouseOut',
+	        value: function mouseOut() {
+	
+	            _canvas2['default'].mouseOut();
 	        }
 	    }]);
 	
@@ -164,9 +192,9 @@
 	
 	var _layersTitle2 = _interopRequireDefault(_layersTitle);
 	
-	var Application = (function () {
-	    function Application() {
-	        _classCallCheck(this, Application);
+	var PixelCanvas = (function () {
+	    function PixelCanvas() {
+	        _classCallCheck(this, PixelCanvas);
 	
 	        this.isRunning = true;
 	
@@ -186,7 +214,7 @@
 	        this.addEventListener();
 	    }
 	
-	    _createClass(Application, [{
+	    _createClass(PixelCanvas, [{
 	        key: 'bind',
 	        value: function bind() {
 	            this.animate = this.animate.bind(this);
@@ -194,12 +222,7 @@
 	        }
 	    }, {
 	        key: 'addEventListener',
-	        value: function addEventListener() {
-	
-	            window.addEventListener('mouseover', this.mouseOver.bind(this));
-	            window.addEventListener('mouseout', this.mouseOut.bind(this));
-	            // this.video.domElement.addEventListener('ended', this.stop);
-	        }
+	        value: function addEventListener() {}
 	    }, {
 	        key: 'setlayers',
 	        value: function setlayers() {
@@ -256,16 +279,16 @@
 	        }
 	    }]);
 	
-	    return Application;
+	    return PixelCanvas;
 	})();
 	
-	Application.lodashFunction = function (myArray) {
+	PixelCanvas.lodashFunction = function (myArray) {
 	    return _lodash2['default'].reduce(myArray, function (total, next) {
 	        return total + next;
 	    });
 	};
 	
-	exports['default'] = new Application();
+	exports['default'] = new PixelCanvas();
 	module.exports = exports['default'];
 
 /***/ },
@@ -12663,7 +12686,7 @@
 	var VIDEO_LOOP = true;
 	
 	exports.VIDEO_LOOP = VIDEO_LOOP;
-	var BACKGROUND_PATH = 'assets/4.jpg';
+	var BACKGROUND_PATH = 'assets/medias/4.jpg';
 	exports.BACKGROUND_PATH = BACKGROUND_PATH;
 
 /***/ },
@@ -12690,9 +12713,9 @@
 	
 	        this.texture = PIXI.Texture.fromImage(_coreConfig.BACKGROUND_PATH);
 	
-	        this.displaceTexture = PIXI.Texture.fromImage('assets/sorter.jpg');
+	        this.displaceTexture = PIXI.Texture.fromImage('assets/medias/sorter.jpg');
 	
-	        this.sorterTexture = PIXI.Texture.fromImage('assets/BxYkOZWIcAEzjjf.png');
+	        this.sorterTexture = PIXI.Texture.fromImage('assets/medias/BxYkOZWIcAEzjjf.png');
 	
 	        this.sprite = new PIXI.Sprite(this.texture);
 	        this.sprite.width = _coreConfig.CANVAS_WIDTH;
@@ -12920,7 +12943,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".ps__heading {\n  color: red; }\n", ""]);
+	exports.push([module.id, "@font-face {\n  font-family: 'Arca';\n  src: url(\"/assets/fonts/Arca-Heavy.ttf\");\n  font-weight: bold; }\n\n.ps__title {\n  position: absolute;\n  width: 100%;\n  top: 50%;\n  transform: translate3d(0, -50%, 0); }\n\n.ps__heading {\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 3em;\n  font-family: 'Arca';\n  letter-spacing: 0.4em;\n  line-height: 1.5em; }\n\n.ps__trigger {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0; }\n", ""]);
 	
 	// exports
 

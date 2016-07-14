@@ -7,7 +7,7 @@ import {
 import VideoLayer from './layers/video';
 import TitleLayer from './layers/title';
 
-class Application {
+class PixelCanvas {
 
     constructor() {
 
@@ -37,10 +37,6 @@ class Application {
     }
 
     addEventListener() {
-
-        window.addEventListener('mouseover', this.mouseOver.bind(this));
-        window.addEventListener('mouseout', this.mouseOut.bind(this));
-        // this.video.domElement.addEventListener('ended', this.stop);
 
     }
 
@@ -101,10 +97,10 @@ class Application {
 
 }
 
-Application.lodashFunction = function(myArray) {
+PixelCanvas.lodashFunction = function(myArray) {
   return _.reduce(myArray, function(total, next) {
     return total + next;
   });
 }
 
-export default (new Application());
+export default (new PixelCanvas());

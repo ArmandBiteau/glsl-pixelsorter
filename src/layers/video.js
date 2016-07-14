@@ -10,9 +10,9 @@ class VideoLayer {
 
         this.texture = PIXI.Texture.fromImage(BACKGROUND_PATH);
 
-        this.displaceTexture = PIXI.Texture.fromImage('assets/sorter.jpg');
+        this.displaceTexture = PIXI.Texture.fromImage('assets/medias/sorter.jpg');
 
-        this.sorterTexture = PIXI.Texture.fromImage('assets/BxYkOZWIcAEzjjf.png');
+        this.sorterTexture = PIXI.Texture.fromImage('assets/medias/BxYkOZWIcAEzjjf.png');
 
         this.sprite = new PIXI.Sprite(this.texture);
         this.sprite.width = CANVAS_WIDTH;

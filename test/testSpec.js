@@ -1,4 +1,4 @@
-import Application from '../src/application.js';
+import PixelCanvas from '../src/canvas.js';
 
 describe('sample test', function() {
   it('should be the truth!', function() {
@@ -6,6 +6,6 @@ describe('sample test', function() {
   });
 
   it('should have lodash working', function() {
-    expect(Application.lodashFunction([1,2,3])).toEqual(6);
+    expect(PixelCanvas.lodashFunction([1,2,3])).toEqual(6);
   });
 });
