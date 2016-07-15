@@ -103,6 +103,8 @@
 	        key: 'start',
 	        value: function start() {
 	
+	            this.domTitle.style.display = 'block';
+	
 	            _canvas2['default'].start();
 	        }
 	

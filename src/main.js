@@ -42,6 +42,8 @@ class Main {
 
     start() {
 
+        this.domTitle.style.display = 'block';
+
         PixelCanvas.start();
 
     }
