@@ -129,7 +129,7 @@
 	        key: 'resize',
 	        value: function resize() {
 	
-	            _canvas2['default'].resize();
+	            _canvas2['default'].resize(window.innerWidth, window.innerHeight);
 	        }
 	    }, {
 	        key: 'mouseOver',
@@ -8054,9 +8054,10 @@
 	        }
 	    }, {
 	        key: 'resize',
-	        value: function resize() {
+	        value: function resize(w, h) {
 	
-	            console.log('resize');
+	            this.renderer.view.style.width = w + "px";
+	            this.renderer.view.style.height = h + "px";
 	        }
 	    }]);
 	

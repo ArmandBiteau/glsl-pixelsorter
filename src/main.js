@@ -67,7 +67,7 @@ class Main {
 
     resize() {
 
-        PixelCanvas.resize();
+        PixelCanvas.resize(window.innerWidth, window.innerHeight);
 
     }
 

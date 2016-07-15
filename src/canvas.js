@@ -89,9 +89,10 @@ class PixelCanvas {
 
     }
 
-    resize() {
+    resize(w, h) {
 
-        console.log('resize');
+        this.renderer.view.style.width = w + "px";
+        this.renderer.view.style.height = h + "px";
 
     }
 
